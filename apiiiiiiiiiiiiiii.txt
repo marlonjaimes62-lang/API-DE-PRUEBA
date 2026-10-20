@@ -1,0 +1,63 @@
+Actúa como desarrollador web senior experto en JavaScript, Node.js y Clean Code. Crea desde cero un proyecto modular que consulte la API de JSONPlaceholder y estructure los datos agrupando las publicaciones y comentarios por Usuario.
+
+Genera el contenido completo de todos estos archivos, sin omitir ninguno:
+
+package.json
+
+env.js
+
+solicitudes.js
+
+servicios.js
+
+formateador.js
+
+index.js
+
+Requisitos del proyecto:
+
+Usa módulos ES de JavaScript (import y export) y configura "type": "module" en package.json.
+
+En package.json, agrega el script "dev": "node index.js".
+
+No agregues dependencias externas.
+
+La URL base de la API debe ser [https://jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com).
+
+Usa fetch para las solicitudes HTTP. No uses async/await, utiliza únicamente promesas con .then() y .catch(). Retorna las promesas correctamente para evitar el anidamiento profundo.
+
+env.js: exporta únicamente la constante API_BASE_URL.
+
+solicitudes.js: exporta la función solicitarJSON(url). Debe comprobar si la respuesta HTTP fue exitosa, lanzar un error si no lo fue, y devolver el JSON.
+
+servicios.js: exporta la función obtenerUsuariosConPublicacionesYComentarios(). Debe consultar los endpoints /users, /posts y /comments en paralelo usando Promise.all. Debes cruzar los datos para devolver un arreglo de objetos con esta estructura exacta (usando propiedades en inglés para el post):
+[
+{
+Usuario: "Nombre del usuario",
+posts: [
+{
+id: 1,
+title: "Título del post",
+body: "Cuerpo del post",
+comentarios: [
+{ autor: "email del comentario", texto: "body del comentario" }
+]
+}
+]
+}
+]
+
+formateador.js: exporta formatearParaConsola(datosAgrupados). Debe imprimir los datos con la siguiente estructura visual para simular la vista de consola:
+1 -> Usuario: "Nombre"
+posts: [
+{
+id: #,
+title: '...',
+body: "...",
+comentarios: [ ... ]
+}
+]
+
+index.js: importa el servicio y el formateador, ejecuta el flujo, imprime el string formateado con console.log y captura errores con console.error.
+
+No uses JSON.stringify para imprimir los objetos crudos, formatea el texto a mano en formateador.js. Mantén una sola responsabilidad por archivo.
