@@ -1,0 +1,75 @@
+Actúa como desarrollador de software y ayúdame a crear desde cero un proyecto en JavaScript con Node.js que consuma la API JSONPlaceholder.
+
+Crea estos archivos con el código completo:
+
+1. package.json
+2. env.js
+3. solicitudes.js
+4. formateador.js
+5. index.js
+
+Requisitos:
+- Usa módulos ES de JavaScript (`import` y `export`).
+- La URL base de la API es https://jsonplaceholder.typicode.com.
+- El programa debe consultar el usuario con ID 1, obtener sus publicaciones y después los comentarios de cada publicación.
+- Debe mostrar en la terminal, para cada publicación:
+  - El título.
+  - El cuerpo.
+  - Los comentarios con el autor y el texto.
+- Para cada comentario, usa estos campos:
+  - `autor`: el email del comentario (`comentario.email`).
+  - `texto`: el contenido del comentario (`comentario.body`).
+- En `formateador.js`, transforma cada comentario con esta estructura:
+
+  comentarios: comentarios.map((comentario) => ({
+      autor: comentario.email,
+      texto: comentario.body,
+  }))
+
+- En `index.js`, muestra los campos de cada comentario con etiquetas claras, por ejemplo:
+  - `Autor: ${comentario.autor}`
+  - `Texto: ${comentario.texto}`
+- Usa encadenamiento de promesas con `.then()` y `.catch()`. No uses `async/await`.
+- No uses `JSON.stringify` ni otro método para imprimir todo el objeto como JSON.
+- Para imprimir los resultados, prepara las líneas de texto y usa una sola llamada a `console.log`.
+- Mantén la responsabilidad única:
+  - `env.js`: guardar la URL base de la API.
+  - `solicitudes.js`: hacer una solicitud HTTP, verificar que la respuesta sea exitosa y devolver el JSON.
+  - `formateador.js`: coordinar las solicitudes de usuario, publicaciones y comentarios, y preparar los datos.
+  - `index.js`: iniciar el proceso, mostrar título, cuerpo, autor y texto, y manejar errores.
+- En `package.json`, incluye el script `"dev": "node index.js"` y configura `"type": "module"`.
+- Si una solicitud HTTP falla, lanza un error que indique el código de estado. Si ocurre un error en el flujo principal, muéstralo en la consola y establece `process.exitCode = 1`.
+- No agregues dependencias externas.
+
+Entrega:
+1. El árbol de archivos del proyecto.
+2. El contenido completo de cada archivo, cada uno en su propio bloque de código.
+3. Una breve explicación de cómo ejecutar el proyecto con `npm run dev`.
+4. Verifica que los imports, exports y nombres de funciones coincidan entre todos los archivos.
+5. Asegúrate de que la salida de ejemplo incluya título, cuerpo, autor y texto de los comentarios.
+
+
+
+2 prompt
+
+
+
+Plaintext
+Actúa como un desarrollador web Senior experto en JavaScript y Clean Code. Necesito crear una pequeña aplicación modular usando ES Modules que consulte la API de JSONPlaceholder para obtener el usuario 1, sus publicaciones y los comentarios de cada publicación.
+
+Genera el código completo distribuido en los siguientes 5 archivos, cumpliendo estrictamente con estas reglas:
+
+1. Principio de Responsabilidad Única (SRP): Cada archivo debe hacer una sola cosa. Separa la configuración, las peticiones HTTP, la lógica de negocio (promesas), el formateo de texto y la ejecución principal.
+2. Encadenamiento de Promesas limpio: Usa `.then()` pero evita el anidamiento profundo (Promise Hell). Retorna las promesas para encadenarlas al mismo nivel. Usa `Promise.all` para las peticiones en paralelo de los comentarios.
+3. Entorno agnóstico: El código debe poder ejecutarse en el navegador, así que NO incluyas objetos globales de Node.js como `process.exitCode`.
+
+Por favor, devuélveme el código para estos archivos:
+
+- `env.js`: Solo debe exportar la constante `API_BASE_URL` ('https://jsonplaceholder.typicode.com').
+- `solicitudes.js`: Debe tener la función `solicitarJSON(url)` usando `fetch`.
+- `formateador.js`: Debe tener una función `formatearParaConsola(publicaciones)` que reciba el array de objetos y retorne un único string formateado con Título, Cuerpo y Comentarios, listo para imprimir.
+- `servicios.js`: Debe tener la función `obtenerPublicacionesConComentarios()` que encadene las llamadas a `solicitarJSON` para traer el usuario 1, sus posts, y los comentarios mapeados correctamente.
+- `index.js`: El punto de entrada que importe el servicio y el formateador, ejecute la promesa e imprima el resultado final o el error.
+
+Muestra solo el código de cada archivo claramente separado.
+
